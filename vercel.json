@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/quest-spawn",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
