@@ -167,7 +167,7 @@ export function QuestHero({ initialQuest }: QuestHeroProps) {
           {/* CTA 버튼 */}
           {!isExpired && (
             <a
-              href="http://localhost:3000/studio"
+              href={`${process.env.NEXT_PUBLIC_FORGE_OS_URL ?? 'http://localhost:3000'}/studio`}
               className="flex-shrink-0 inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 active:bg-violet-700 text-white font-bold px-6 py-4 rounded-2xl transition-all hover:scale-105 hover:shadow-lg hover:shadow-violet-900/50 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-transparent"
               id="quest-hero-cta"
             >

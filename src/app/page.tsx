@@ -425,7 +425,7 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative">
               <Link
-                href="http://localhost:3000/studio"
+                href={`${process.env.NEXT_PUBLIC_FORGE_OS_URL ?? 'http://localhost:3000'}/studio`}
                 className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-2xl transition-all hover:scale-105 hover:shadow-xl hover:shadow-violet-900/50"
               >
                 ⚡ Pack Studio 시작하기

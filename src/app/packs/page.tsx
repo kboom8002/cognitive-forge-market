@@ -10,7 +10,7 @@ import { PackCard } from '@/components/pack-card';
 import type { MicroSaaSUISchema } from '@/types/ui-forge';
 import type { AgentPack } from '@/types/database';
 
-export const revalidate = 30;
+export const revalidate = 60; // 60s ISR — 서버 부하 절반으로 감소
 
 export const metadata: Metadata = {
   title: 'AgentPack 마켓플레이스 | Cognitive Forge Market',
@@ -174,8 +174,8 @@ export default async function PacksListPage({ searchParams }: PacksPageProps) {
             </div>
           </div>
 
-          {/* Mock 표시 */}
-          {isMock && (
+          {/* Mock 표시 — 프로덕션에서는 숨김 */}
+          {isMock && process.env.NODE_ENV !== 'production' && (
             <div className="ml-auto text-xs text-amber-400/70 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full">
               ⚙️ 개발 모드 — 더미 데이터
             </div>

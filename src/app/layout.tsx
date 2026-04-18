@@ -4,7 +4,15 @@ import { Suspense } from "react";
 import { TelemetryProvider } from "@/components/telemetry-provider";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  preload: true,
+});
+
+// Forge OS URL — 프로덕션에서는 실제 도메인, 로컈에서는 localhost:3000
+const FORGE_OS_URL = process.env.NEXT_PUBLIC_FORGE_OS_URL ?? 'http://localhost:3000';
 
 export const metadata: Metadata = {
   title: "Cognitive Forge Market | AgentPack 마켓플레이스",
@@ -69,7 +77,7 @@ export default function RootLayout({
             {/* Right CTA */}
             <div className="flex items-center gap-3">
               <a
-                href="http://localhost:3000"
+                  href={FORGE_OS_URL}
                 className="hidden sm:flex items-center gap-2 bg-slate-900 hover:bg-blue-700 text-white text-sm font-bold px-4 py-2 rounded-full transition-colors shadow-md"
               >
                 <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
@@ -113,7 +121,7 @@ export default function RootLayout({
                 <h4 className="text-white font-bold mb-3 text-xs uppercase tracking-widest">Forge OS</h4>
                 <p className="text-sm mb-4">팩 제작·관리·SCL 검증은 Cognitive Forge OS에서 진행합니다.</p>
                 <a
-                  href="http://localhost:3000"
+                    href={FORGE_OS_URL}
                   className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-full transition-colors"
                 >
                   OS 입장 →

@@ -283,7 +283,7 @@ export default async function AuthorsHubPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative">
               <Link
-                href="http://localhost:3000/studio"
+                href={`${process.env.NEXT_PUBLIC_FORGE_OS_URL ?? 'http://localhost:3000'}/studio`}
                 className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-4 rounded-2xl transition-all hover:scale-105 hover:shadow-xl hover:shadow-emerald-900/40"
               >
                 🎓 Author 신청하기

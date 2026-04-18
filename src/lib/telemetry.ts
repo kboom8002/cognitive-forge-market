@@ -13,12 +13,14 @@ const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '';
 
 /**
  * Supabase REST API로 직접 INSERT (클라이언트 사이드 경량 버전)
- * @supabase/supabase-js 클라이언트 대신 fetch 사용 — Edge/Server 모두 호환
+ * @supabase/supabase-js 클라이언트 대신 fetch 사용 — Edge/Server 모두 호환
+ *
+ * 테이블 미존재(404), RLS 차단(403)이라도 UX에 영향없이 조용히 실패
  */
 async function supabaseInsert(table: string, record: Record<string, unknown>) {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return; // 환경변수 미설정 시 skip
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,6 +30,12 @@ async function supabaseInsert(table: string, record: Record<string, unknown>) {
       },
       body: JSON.stringify(record),
     });
+    // 404(테이블 미존재), 403(RLS 차단) 시 dev만 경고 로갉
+    if (!res.ok && process.env.NODE_ENV !== 'production') {
+      console.warn(
+        `[CFM Telemetry] ${table} INSERT 실패 (${res.status}) — DB 마이그레이션 필요`
+      );
+    }
   } catch {
     // 네트워크 오류 시 무시 (telemetry는 non-blocking)
   }
